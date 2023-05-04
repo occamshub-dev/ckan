@@ -11,6 +11,8 @@ import logging
 from logging.handlers import SMTPHandler
 from typing import Any, Optional, Union, cast
 
+from opentelemetry.instrumentation.wsgi import OpenTelemetryMiddleware
+
 from flask import Blueprint, send_from_directory, current_app
 from flask.ctx import _AppCtxGlobals
 from flask.sessions import SessionInterface
@@ -182,6 +184,7 @@ def make_flask_stack(conf: Union[Config, CKANConfig]) -> CKANApp:
         session_opts['session.data_dir'] = '{data_dir}/sessions'.format(
             data_dir=cache_dir)
 
+    app.wsgi_app = OpenTelemetryMiddleware(app.wsgi_app)
     app.wsgi_app = RootPathMiddleware(app.wsgi_app)
     app.wsgi_app = SessionMiddleware(app.wsgi_app, session_opts)
     app.session_interface = BeakerSessionInterface()
