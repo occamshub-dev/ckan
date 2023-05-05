@@ -36,3 +36,4 @@ watchdog==2.1.5         # For py3 support
 webassets==0.12.1
 Werkzeug[watchdog]==1.0.0
 zope.interface<5.0
+opentelemetry-instrumentation-wsgi==0.38b0
