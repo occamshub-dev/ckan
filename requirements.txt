@@ -164,6 +164,8 @@ zipp==3.7.0
     # via importlib-metadata
 zope-interface==5.4.0
     # via -r requirements.in
+
+uWSGI==2.0.19.1
 opentelemetry-api==1.17.0
 opentelemetry-exporter-otlp==1.17.0
 opentelemetry-instrumentation==0.38b0
