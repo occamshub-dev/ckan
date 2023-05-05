@@ -17,10 +17,7 @@ from opentelemetry.sdk.resources import Resource
 from opentelemetry.sdk.trace import TracerProvider
 from opentelemetry.sdk.trace.export import BatchSpanProcessor
 
-from uwsgidecorators import postfork
-
-@postfork
-def init_tracing():
+def post_fork():
     resource = Resource.create(attributes={"service.name": "api-service"})
 
     trace.set_tracer_provider(TracerProvider(resource=resource))
