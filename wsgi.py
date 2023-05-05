@@ -1,9 +1,28 @@
 # -*- coding: utf-8 -*-
 
 import os
+
+from opentelemetry.trace import TracerProvider
+
 from ckan.config.middleware import make_app
 from ckan.cli import CKANConfigLoader
 from logging.config import fileConfig as loggingFileConfig
+
+from opentelemetry.sdk.resources import Resource
+
+from uwsgidecorators import postfork
+
+@postfork
+def init_tracing():
+    resource = Resource.create(attributes={"service.name": "api-service"})
+
+    trace.set_tracer_provider(TracerProvider(resource=resource))
+    # This uses insecure connection for the purpose of example. Please see the
+    # OTLP Exporter documentation for other options.
+    span_processor = BatchSpanProcessor(
+        OTLPSpanExporter(endpoint="http://localhost:4317", insecure=True)
+    )
+    trace.get_tracer_provider().add_span_processor(span_processor)
 
 if os.environ.get('CKAN_INI'):
     config_path = os.environ['CKAN_INI']

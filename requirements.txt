@@ -50,7 +50,7 @@ greenlet==1.1.2
     # via sqlalchemy
 idna==3.3
     # via requests
-importlib-metadata==4.11.3
+importlib-metadata~=6.0.0
     # via markdown
 itsdangerous==2.1.1
     # via
@@ -164,7 +164,12 @@ zipp==3.7.0
     # via importlib-metadata
 zope-interface==5.4.0
     # via -r requirements.in
+opentelemetry-api==1.17.0
+opentelemetry-exporter-otlp==1.17.0
+opentelemetry-instrumentation==0.38b0
 opentelemetry-instrumentation-wsgi==0.38b0
+opentelemetry-instrumentation-flask==0.38b0
+opentelemetry-sdk==1.17.0
 
 # The following packages are considered to be unsafe in a requirements file:
 # setuptools
