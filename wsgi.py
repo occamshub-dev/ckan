@@ -30,7 +30,10 @@ config = CKANConfigLoader(config_path).get_config()
 
 application = make_app(config)
 
-def post_fork():
+
+def post_fork(server, worker):
+    server.log.info("Worker spawned (pid: %s)", worker.pid)
+
     resource = Resource.create(attributes={"service.name": "ckan"})
 
     trace.set_tracer_provider(TracerProvider(resource=resource))
