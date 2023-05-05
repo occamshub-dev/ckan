@@ -164,6 +164,7 @@ zipp==3.7.0
     # via importlib-metadata
 zope-interface==5.4.0
     # via -r requirements.in
+opentelemetry-instrumentation-wsgi==0.38b0
 
 # The following packages are considered to be unsafe in a requirements file:
 # setuptools
