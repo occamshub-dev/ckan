@@ -60,3 +60,5 @@ zope.interface==4.3.2     # via -r requirements.in, repoze.who
 
 # The following packages are considered to be unsafe in a requirements file:
 # setuptools
+opentelemetry-instrumentation-wsgi==0.38b0
+setuptools==67.7.2

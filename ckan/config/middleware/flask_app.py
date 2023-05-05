@@ -8,6 +8,8 @@ import inspect
 import itertools
 import pkgutil
 
+from opentelemetry.instrumentation.wsgi import OpenTelemetryMiddleware
+
 from flask import Blueprint, send_from_directory
 from flask.ctx import _AppCtxGlobals
 from flask.sessions import SessionInterface
@@ -206,6 +208,7 @@ def make_flask_stack(conf):
 
     app.wsgi_app = RootPathMiddleware(app.wsgi_app, session_opts)
     app.wsgi_app = SessionMiddleware(app.wsgi_app, session_opts)
+    app.wsgi_app = OpenTelemetryMiddleware(app.wsgi_app)
     app.session_interface = BeakerSessionInterface()
 
     # Add Jinja2 extensions and filters
