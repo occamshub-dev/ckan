@@ -3,6 +3,7 @@
 import os
 
 from opentelemetry.trace import TracerProvider
+from uwsgidecorators import postfork
 
 from ckan.config.middleware import make_app
 from ckan.cli import CKANConfigLoader
@@ -31,9 +32,8 @@ config = CKANConfigLoader(config_path).get_config()
 application = make_app(config)
 
 
-def post_fork(server, worker):
-    server.log.info("Worker spawned (pid: %s)", worker.pid)
-
+@postfork
+def init_tracing():
     resource = Resource.create(attributes={"service.name": "ckan"})
 
     trace.set_tracer_provider(TracerProvider(resource=resource))
