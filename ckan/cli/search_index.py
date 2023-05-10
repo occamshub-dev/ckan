@@ -5,6 +5,8 @@ import multiprocessing as mp
 
 import click
 import sqlalchemy as sa
+from opentelemetry.instrumentation.sqlalchemy import SQLAlchemyInstrumentor
+
 from ckan.common import config
 from ckan.lib.search import query_for
 import ckan.logic as logic
@@ -160,6 +162,9 @@ def rebuild_fast():
 
     db_url = config['sqlalchemy.url']
     engine = sa.create_engine(db_url)
+    SQLAlchemyInstrumentor().instrument(
+        engine=engine,
+    )
     package_ids = []
     result = engine.execute(u"select id from package where state = 'active';")
     for row in result:

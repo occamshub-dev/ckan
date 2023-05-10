@@ -8,6 +8,7 @@ import six
 from urllib.parse import unquote, urlparse
 
 import sqlalchemy as sa
+from opentelemetry.instrumentation.sqlalchemy import SQLAlchemyInstrumentor
 
 from ckan.common import CKANConfig, config
 from ckan.types import CKANApp
@@ -36,6 +37,9 @@ class TrackingMiddleware(object):
     def __init__(self, app: CKANApp, config: CKANConfig):
         self.app = app
         self.engine = sa.create_engine(config.get('sqlalchemy.url'))
+        SQLAlchemyInstrumentor().instrument(
+            engine=self.engine
+        )
 
     def __call__(self, environ: Any, start_response: Any) -> Any:
         path = environ['PATH_INFO']

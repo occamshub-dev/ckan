@@ -31,6 +31,7 @@ import json
 from configparser import ConfigParser
 from argparse import ArgumentParser
 
+from opentelemetry.instrumentation.sqlalchemy import SQLAlchemyInstrumentor
 from sqlalchemy import create_engine
 from sqlalchemy.sql import text
 
@@ -51,6 +52,9 @@ def main():
     args = parser.parse_args()
     config.read(args.config)
     engine = create_engine(config.get(u'app:main', u'sqlalchemy.url'))
+    SQLAlchemyInstrumentor().instrument(
+        engine=engine,
+    )
     records = engine.execute(SIMPLE_Q)
 
     total = records.rowcount

@@ -169,6 +169,8 @@ opentelemetry-exporter-otlp==1.17.0
 opentelemetry-instrumentation==0.38b0
 opentelemetry-instrumentation-wsgi==0.38b0
 opentelemetry-instrumentation-flask==0.38b0
+opentelemetry-instrumentation-sqlalchemy==0.38b0
+opentelemetry-instrumentation-requests==0.38b0
 opentelemetry-sdk==1.17.0
 
 # The following packages are considered to be unsafe in a requirements file:
